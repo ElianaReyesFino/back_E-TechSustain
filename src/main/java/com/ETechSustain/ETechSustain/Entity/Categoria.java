@@ -1,9 +1,6 @@
 package com.ETechSustain.ETechSustain.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -15,22 +12,24 @@ import lombok.*;
 public class Categoria {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categoria")
+    private Integer id_categoria;
 
+    @Column
     private String nombre;
 
 
-    public Long getId() {
-        return id;
+    public Integer getId() {
+        return id_categoria;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.id_categoria = id_categoria;
     }
 
     public void setNombre(String nombre) {

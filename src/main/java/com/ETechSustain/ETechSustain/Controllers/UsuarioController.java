@@ -17,38 +17,39 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuarios createUser(@RequestBody Usuarios usuarios){
-        return usuariosRepository.save(usuarios);
+    public Usuarios createProduct(@RequestBody Usuarios usuariosEntity){
+        return usuariosRepository.save(usuariosEntity);
     }
+
 
     @GetMapping
     public List<Usuarios> GetAllUsers(){
         return usuariosRepository.findAll();
     }
 
-    @PutMapping("/{id}")
-    public Usuarios UpdateUser(@PathVariable Long id , @RequestBody Usuarios newUsuarios) {
-        Usuarios usuarioBuscado = usuariosRepository.findById(id).orElse(null);
-        if (usuarioBuscado != null){
-            usuarioBuscado.setNombre(newUsuarios.getNombre());
-            usuarioBuscado.setEmail(newUsuarios.getEmail());
-            usuarioBuscado.setTelefono(newUsuarios.getTelefono());
-            usuarioBuscado.setRol(newUsuarios.getRol());
-            return usuariosRepository.save(usuarioBuscado);
-        }
-        else {
-            throw new RuntimeException("El usuario no se puede actualizar");
-        }
-    }
-
     @DeleteMapping("/{id}")
-    public String deleteUser (@PathVariable Long id){
+    public String deleteProduct (@PathVariable Integer id){
         if(usuariosRepository.findById(id).isPresent()){
             usuariosRepository.deleteById(id);
             return "El usuario fue eliminado";
         }
         else {
             throw new RuntimeException("El usuario no se puede eliminar");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public Usuarios UpdateProduct(@PathVariable Integer id , @RequestBody Usuarios newUsuariosEntity) {
+        Usuarios usuarioBuscado = usuariosRepository.findById(id).orElse(null);
+        if (usuarioBuscado != null){
+            usuarioBuscado.setNombre(newUsuariosEntity.getNombre());
+            usuarioBuscado.setCorreo(newUsuariosEntity.getCorreo());
+            usuarioBuscado.setCelular(newUsuariosEntity.getCelular());
+            usuarioBuscado.setRol(newUsuariosEntity.getRol());
+            return usuariosRepository.save(usuarioBuscado);
+        }
+        else {
+            throw new RuntimeException("El usuario no se puede actualizar");
         }
     }
 }

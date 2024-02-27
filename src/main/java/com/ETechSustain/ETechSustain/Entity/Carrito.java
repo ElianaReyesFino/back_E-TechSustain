@@ -1,9 +1,6 @@
 package com.ETechSustain.ETechSustain.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,26 +11,31 @@ import lombok.*;
 public class Carrito {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_carrito")
+    private Integer id_carrito;
 
-    private Long id_usuario;
+    @Column
+    private Integer id_usuario;
 
-    private Long id_producto;
+    @Column
+    private Integer id_producto;
 
+    @Column
     private int cantidad;
 
+    @Column
     private double precioTotal;
 
-    public Long getId() {
-        return id;
+    public Integer getId() {
+        return id_carrito;
     }
 
-    public Long getId_usuario() {
+    public Integer getId_usuario() {
         return id_usuario;
     }
 
-    public Long getId_producto() {
+    public Integer getId_producto() {
         return id_producto;
     }
 
@@ -45,15 +47,15 @@ public class Carrito {
         return precioTotal;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.id_carrito = id_carrito;
     }
 
-    public void setId_usuario(Long id_usuario) {
+    public void setId_usuario(Integer id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public void setId_producto(Long id_producto) {
+    public void setId_producto(Integer id_producto) {
         this.id_producto = id_producto;
     }
 

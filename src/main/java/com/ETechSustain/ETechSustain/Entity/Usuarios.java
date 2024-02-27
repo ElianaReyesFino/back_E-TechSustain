@@ -1,12 +1,10 @@
 package com.ETechSustain.ETechSustain.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.*;
 
-@Entity
+@Entity(name = "usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "usuarios")
@@ -14,54 +12,59 @@ import lombok.*;
 public class Usuarios {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
+    private Integer id_usuario;
 
+    @Column
     private String nombre;
 
-    private String email;
+    @Column
+    private String correo;
 
-    private String telefono;
+    @Column
+    private String celular;
 
-    private boolean rol;
+    @Column
+    private Integer rol;
 
-    public Long getId() {
-        return id;
+    public Integer getId_usuario() {
+        return id_usuario;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getCelular() {
+        return celular;
     }
 
-    public boolean getRol() {
+    public Integer getRol() {
         return rol;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
-    public void setRol(boolean rol) {
+    public void setRol(Integer rol) {
         this.rol = rol;
     }
 }

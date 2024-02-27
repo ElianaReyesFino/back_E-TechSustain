@@ -1,9 +1,6 @@
 package com.ETechSustain.ETechSustain.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,19 +11,20 @@ import lombok.*;
 public class Productos {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
     private Long id;
-
+    @Column
     private String nombre;
-
+    @Column
     private String descripcion;
-
+    @Column
     private double precio;
-
+    @Column
     private int cantidad;
-
+    @Column
     private String url_image;
-
+    @Column
     private Long id_categoria;
 
     public Long getId() {
