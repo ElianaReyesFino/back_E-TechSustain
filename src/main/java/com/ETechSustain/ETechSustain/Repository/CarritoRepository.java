@@ -12,6 +12,7 @@ import java.util.List;
 public interface CarritoRepository extends JpaRepository<Carrito, Long> {
 
 
+    @Query("SELECT c FROM Carrito c WHERE c.usuario.id = :id")
     List<Carrito> findAllByUsuario_Id(Integer id);
 
     @Query("SELECT c.usuario.id, SUM(c.precio_total) AS total_precio, SUM(c.cantidad) AS total_cantidad FROM Carrito c GROUP BY c.usuario.id")

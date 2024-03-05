@@ -34,11 +34,7 @@ public class CarritoSIMPL implements CarritoService{
 
     @Override
     public List<Carrito> getAllCarritosByIdUsuario(Integer id) {
-       //check if the user exists
-        if(!carritoRepository.existsById(Long.valueOf(id))) {
-            return null;
-        }
-        return carritoRepository.findAllByUsuario_Id(id);
+       return carritoRepository.findAllByUsuario_Id(id);
     }
 
     @Override

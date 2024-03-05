@@ -1,16 +1,17 @@
 package com.ETechSustain.ETechSustain.Services;
 
+import com.ETechSustain.ETechSustain.DTO.UsuarioDTO;
 import com.ETechSustain.ETechSustain.Entity.Usuarios;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UsuariosService {
-    public Usuarios createUser(Usuarios usuarios);
-    public List<Usuarios> getAllUsers();
+    public UsuarioDTO createUser(Usuarios usuarios);
+    public List<UsuarioDTO> getAllUsers();
 
-    public Optional<Usuarios> getUserById(Integer id);
-    public Optional<Usuarios> getUserByEmail(String correo);
-    public Optional<Usuarios> updateUser(Integer id, Usuarios newUsuarios);
+    public Optional<UsuarioDTO> getUserById(Integer id);
+    public Optional<UsuarioDTO> getUserByEmail(String correo);
+    public Optional<UsuarioDTO> updateUser(Integer id, Usuarios newUsuarios);
     public String deleteUser(Integer id);
 }

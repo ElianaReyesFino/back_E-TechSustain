@@ -15,15 +15,20 @@ public class Productos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Integer id_producto;
+
     @Column
     private String nombre;
+
     @Column(length = 2000)
     private String descripcion;
+
     @Column
     private double precio;
+
     @Column
     private Integer cantidad;
-    @Column(columnDefinition = "TEXT")
+
+    @Column(columnDefinition = "LONGTEXT")
     private String url_image;
 //    @Column
 //    private Integer id_categoria;

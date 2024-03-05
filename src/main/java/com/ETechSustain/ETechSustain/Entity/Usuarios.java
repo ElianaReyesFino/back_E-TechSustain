@@ -1,15 +1,18 @@
 package com.ETechSustain.ETechSustain.Entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Name;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.Date;
 
 @Entity(name = "usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Table(name = "usuarios")
-
+@DynamicUpdate
 public class Usuarios {
 
     @Id
@@ -24,8 +27,18 @@ public class Usuarios {
     private String correo;
 
     @Column
-    private String celular;
+    private String contrasena;
 
     @Column
-    private boolean rol;
+    private String celular;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean rol;
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    private Date created_at;
+
+    @Column(name= "deleted_at", nullable = true)
+    private Date deleted_at;
 }
