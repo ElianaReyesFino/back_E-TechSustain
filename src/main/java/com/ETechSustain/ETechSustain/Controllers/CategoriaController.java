@@ -1,33 +1,40 @@
 package com.ETechSustain.ETechSustain.Controllers;
 
-import com.ETechSustain.ETechSustain.Repository.CategoriaRespository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ETechSustain.ETechSustain.Entity.Categoria;
+import com.ETechSustain.ETechSustain.Services.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/categoria")
+@CrossOrigin("http://127.0.0.1:5500")
 
 public class CategoriaController {
 
-        private CategoriaRespository categoriaRespository;
+    @Autowired
+    private CategoriaService categoriaService;
 
-        public CategoriaController(CategoriaRespository categoriaRespository) {
-            this.categoriaRespository = categoriaRespository;
-        }
 
-        public String createCategoria(){
-            return "Categoria creada";
-        }
+    @GetMapping
+    public List<Categoria> getAllCategorias(){
+        return categoriaService.getAllCategorias();
+    }
 
-        public String GetAllCategorias(){
-            return "Categorias obtenidas";
-        }
+    @PostMapping
+    public Categoria createCategoria(@RequestBody Categoria categoria){
+        return categoriaService.createCategoria(categoria);
+    }
 
-        public String UpdateCategoria(Long id) {
-            return "Categoria actualizada";
-        }
+    @DeleteMapping("/{id}")
+    public String deleteCategoria(@PathVariable Integer id){
+        return categoriaService.deleteCategoria(id);
+    }
 
-        public String deleteCategoria (Long id){
-            return "Categoria eliminada";
-        }
+    @PutMapping("/{id}")
+    public Optional<Categoria> updateCategoria(@PathVariable Integer id, @RequestBody Categoria new_categoria){
+        return categoriaService.updateCategoria(id, new_categoria);
+    }
 }

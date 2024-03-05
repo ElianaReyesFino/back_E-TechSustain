@@ -1,55 +1,66 @@
 package com.ETechSustain.ETechSustain.Controllers;
 
+import com.ETechSustain.ETechSustain.DTO.UsuarioDTO;
 import com.ETechSustain.ETechSustain.Entity.Usuarios;
-import com.ETechSustain.ETechSustain.Repository.UsuariosRepository;
+import com.ETechSustain.ETechSustain.Services.UsuariosService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("http://127.0.0.1:5500")
 
 public class UsuarioController {
-    private UsuariosRepository usuariosRepository;
-
-    public UsuarioController(UsuariosRepository usuariosRepository) {
-        this.usuariosRepository = usuariosRepository;
-    }
+    @Autowired
+    private UsuariosService usuariosService;
 
     @PostMapping
-    public Usuarios createProduct(@RequestBody Usuarios usuariosEntity){
-        return usuariosRepository.save(usuariosEntity);
+    public ResponseEntity<UsuarioDTO> createUser(@RequestBody Usuarios usuariosEntity) {
+        return ResponseEntity.ok(usuariosService.createUser(usuariosEntity));
     }
-
 
     @GetMapping
-    public List<Usuarios> GetAllUsers(){
-        return usuariosRepository.findAll();
+    public ResponseEntity<List<UsuarioDTO>> GetAllUsers() {
+
+        return ResponseEntity.ok(usuariosService.getAllUsers());
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteProduct (@PathVariable Integer id){
-        if(usuariosRepository.findById(id).isPresent()){
-            usuariosRepository.deleteById(id);
-            return "El usuario fue eliminado";
-        }
-        else {
-            throw new RuntimeException("El usuario no se puede eliminar");
-        }
+    @GetMapping("/by/{id}")
+    public ResponseEntity<Optional<UsuarioDTO>> GetUser(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuariosService.getUserById(id));
+    }
+
+    @GetMapping("/email/{correo}")
+    public ResponseEntity<Optional<UsuarioDTO>> GetUserByEmail(@PathVariable String correo) {
+        return ResponseEntity.ok(usuariosService.getUserByEmail(correo));
+    }
+
+    @PutMapping("/{id}/delete")
+    public String deleteUser(@PathVariable Integer id) {
+        return usuariosService.deleteUser(id);
     }
 
     @PutMapping("/{id}")
-    public Usuarios UpdateProduct(@PathVariable Integer id , @RequestBody Usuarios newUsuariosEntity) {
-        Usuarios usuarioBuscado = usuariosRepository.findById(id).orElse(null);
-        if (usuarioBuscado != null){
-            usuarioBuscado.setNombre(newUsuariosEntity.getNombre());
-            usuarioBuscado.setCorreo(newUsuariosEntity.getCorreo());
-            usuarioBuscado.setCelular(newUsuariosEntity.getCelular());
-            usuarioBuscado.setRol(newUsuariosEntity.getRol());
-            return usuariosRepository.save(usuarioBuscado);
-        }
-        else {
-            throw new RuntimeException("El usuario no se puede actualizar");
+    public ResponseEntity<Optional<UsuarioDTO>> UpdateUser(@PathVariable Integer id, @RequestBody Usuarios newUsuariosEntity) {
+
+        return ResponseEntity.ok(usuariosService.updateUser(id, newUsuariosEntity));
+
+//        Optional<Usuarios> optionalUsuario = usuariosService.updateUser(id, newUsuariosEntity);
+//        return optionalUsuario.orElseThrow(() -> new RuntimeException("El usuario no se puede actualizar"));
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyUsuario(@RequestBody String correo, @RequestBody String contrasena) {
+        Optional<UsuarioDTO> verifiedUser = usuariosService.verifyUser(correo, contrasena);
+        if (verifiedUser.isPresent()) {
+            return ResponseEntity.ok("Usuario verificado"); // or you can return user details here
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
         }
     }
 }

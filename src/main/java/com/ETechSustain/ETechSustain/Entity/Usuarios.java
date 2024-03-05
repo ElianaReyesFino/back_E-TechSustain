@@ -1,20 +1,24 @@
 package com.ETechSustain.ETechSustain.Entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Name;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import java.util.Date;
+
 
 @Entity(name = "usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Table(name = "usuarios")
-
+@DynamicUpdate
 public class Usuarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Integer id_usuario;
+    private Integer id;
 
     @Column
     private String nombre;
@@ -23,48 +27,18 @@ public class Usuarios {
     private String correo;
 
     @Column
-    private String celular;
+    private String contrasena;
 
     @Column
-    private Integer rol;
+    private String celular;
 
-    public Integer getId_usuario() {
-        return id_usuario;
-    }
+    @Column(columnDefinition = "boolean default false")
+    private Boolean rol;
 
-    public String getNombre() {
-        return nombre;
-    }
+    @CreationTimestamp
+    @Column(nullable = false)
+    private Date created_at;
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public Integer getRol() {
-        return rol;
-    }
-
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
-    public void setRol(Integer rol) {
-        this.rol = rol;
-    }
+    @Column(name= "deleted_at", nullable = true)
+    private Date deleted_at;
 }

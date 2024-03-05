@@ -2,60 +2,40 @@ package com.ETechSustain.ETechSustain.Controllers;
 
 import com.ETechSustain.ETechSustain.Entity.Productos;
 import com.ETechSustain.ETechSustain.Repository.ProductosRepository;
+import com.ETechSustain.ETechSustain.Services.ProductoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/productos")
+@CrossOrigin("http://127.0.0.1:5500")
 
 public class ProductoController {
 
-    private ProductosRepository productosRepository;
-
-    public ProductoController(ProductosRepository productosRepository) {
-        this.productosRepository = productosRepository;
-    }
-
-    @PostMapping
-    public Productos createProduct(@RequestBody Productos productosEntity){
-        return productosRepository.save(productosEntity);
-    }
+    @Autowired
+    private ProductoService productoService;
 
     @GetMapping
-    public List<Productos> GetAllProducts(){
-        return productosRepository.findAll();
+    public List<Productos> getAllProducts(){
+        return productoService.getAllProducts();
     }
 
-    @PutMapping("/{id}")
-    public Productos UpdateProduct(@PathVariable Long id , @RequestBody Productos newProductosEntity) {
 
-        Productos productoBuscado = productosRepository.findById(id).orElse(null);
-
-        if (productoBuscado != null){
-            productoBuscado.setNombre(newProductosEntity.getNombre());
-            productoBuscado.setDescripcion(newProductosEntity.getDescripcion());
-            productoBuscado.setPrecio(newProductosEntity.getPrecio());
-            productoBuscado.setCantidad(newProductosEntity.getCantidad());
-            productoBuscado.setUrlImage(newProductosEntity.getUrlImage());
-            productoBuscado.setId_categoria(newProductosEntity.getId_categoria());
-
-            return productosRepository.save(productoBuscado);
-        }
-        else {
-            throw new RuntimeException("El producto no se puede actualizar");
-        }
+    @PostMapping
+    public Productos createProduct(@RequestBody Productos productos){
+        return productoService.createProduct(productos);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProduct (@PathVariable Long id){
+    public String deleteProduct(@PathVariable Integer id){
+        return productoService.deleteProduct(id);
+    }
 
-        if(productosRepository.findById(id).isPresent()){
-            productosRepository.deleteById(id);
-            return "El producto fue eliminado";
-        }
-        else {
-            throw new RuntimeException("El producto no se puede eliminar");
-        }
+    @PutMapping("/{id}")
+    public Optional<Productos> updateProduct(@PathVariable Integer id, @RequestBody Productos newProduct){
+        return productoService.updateProduct(id, newProduct);
     }
 }

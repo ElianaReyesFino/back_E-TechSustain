@@ -7,6 +7,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Table(name = "categoria")
 
 public class Categoria {
@@ -19,21 +20,5 @@ public class Categoria {
     @Column
     private String nombre;
 
-
-    public Integer getId() {
-        return id_categoria;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setId(Integer id) {
-        this.id_categoria = id_categoria;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }
 
