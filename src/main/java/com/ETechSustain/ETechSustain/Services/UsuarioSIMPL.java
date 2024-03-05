@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -67,6 +66,25 @@ public class UsuarioSIMPL implements UsuariosService{
             return Optional.empty();
         }
         //return usuariosRepository.findByCorreo(correo);
+    }
+
+    @Override
+    public Optional<UsuarioDTO> verifyUser(String correo, String contrasena) {
+        Optional<Usuarios> usuarioBuscado = usuariosRepository.findByCorreo(correo);
+        if (usuarioBuscado.isPresent()) {
+            Usuarios usuario = usuarioBuscado.get();
+            // Assuming you have a getPassword() method in Usuarios entity
+            if (verifyPassword(contrasena, usuario.getContrasena())) {
+                return usuarioBuscado.map(user -> conversionService.convert(user, UsuarioDTO.class));
+            }
+        }
+        return Optional.empty();
+    }
+
+    private boolean verifyPassword(String providedPassword, String storedPassword) {
+        // Implement your password verification logic here
+        // For simplicity, let's assume plain text comparison (not recommended for production)
+        return providedPassword.equals(storedPassword);
     }
 
     @Override

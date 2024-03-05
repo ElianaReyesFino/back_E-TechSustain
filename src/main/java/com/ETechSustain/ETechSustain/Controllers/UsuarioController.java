@@ -4,6 +4,7 @@ import com.ETechSustain.ETechSustain.DTO.UsuarioDTO;
 import com.ETechSustain.ETechSustain.Entity.Usuarios;
 import com.ETechSustain.ETechSustain.Services.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +52,15 @@ public class UsuarioController {
 
 //        Optional<Usuarios> optionalUsuario = usuariosService.updateUser(id, newUsuariosEntity);
 //        return optionalUsuario.orElseThrow(() -> new RuntimeException("El usuario no se puede actualizar"));
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyUsuario(@RequestBody String correo, @RequestBody String contrasena) {
+        Optional<UsuarioDTO> verifiedUser = usuariosService.verifyUser(correo, contrasena);
+        if (verifiedUser.isPresent()) {
+            return ResponseEntity.ok("Usuario verificado"); // or you can return user details here
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+        }
     }
 }

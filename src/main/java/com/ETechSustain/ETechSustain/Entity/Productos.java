@@ -28,7 +28,7 @@ public class Productos {
     @Column
     private Integer cantidad;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String url_image;
 //    @Column
 //    private Integer id_categoria;

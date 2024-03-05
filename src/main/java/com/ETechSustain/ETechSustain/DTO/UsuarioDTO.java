@@ -14,9 +14,9 @@ import java.util.Date;
 public class UsuarioDTO {
 
     private Integer id;
-    private String name;
-    private String email;
+    private String nombre;
+    private String correo;
     private String celular;
-    private boolean role;
+    private boolean rol;
     private Date created_at;
 }

@@ -18,10 +18,10 @@ public class UsuarioToUsuarioDTOCoverter implements Converter<Usuarios, UsuarioD
     public UsuarioDTO convert(Usuarios source) {
         return UsuarioDTO.builder()
                 .id(source.getId())
-                .name(source.getNombre())
-                .email(source.getCorreo())
+                .nombre(source.getNombre())
+                .correo(source.getCorreo())
                 .celular(source.getCelular())
-                .role(source.getRol())
+                .rol(source.getRol())
                 .created_at(source.getCreated_at())
                 .build();
     }

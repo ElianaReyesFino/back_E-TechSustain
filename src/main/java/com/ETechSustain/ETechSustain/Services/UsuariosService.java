@@ -14,4 +14,7 @@ public interface UsuariosService {
     public Optional<UsuarioDTO> getUserByEmail(String correo);
     public Optional<UsuarioDTO> updateUser(Integer id, Usuarios newUsuarios);
     public String deleteUser(Integer id);
+
+    //Verifide if user exist and correo and contraseña are correct
+    public Optional<UsuarioDTO> verifyUser(String correo, String contrasena);
 }
