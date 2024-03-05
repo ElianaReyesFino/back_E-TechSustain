@@ -17,6 +17,6 @@ public interface UsuariosService {
     public String deleteUser(Integer id);
 
     //Verifide if user exist and correo and contraseña are correct
-    public Optional<UsuarioDTO> verifyUser(String correo, String contrasena);
+    public Optional<Usuarios> verifyUser(Usuarios usuarios);
 
 }

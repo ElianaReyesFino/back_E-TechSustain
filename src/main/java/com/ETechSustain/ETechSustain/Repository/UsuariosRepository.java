@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface UsuariosRepository extends JpaRepository<Usuarios, Integer> {
     public Optional<Usuarios> findByCorreo(String correo);
 
-    @Query(value = "SELECT * FROM Usuarios u WHERE u.deleted_at IS NULL", nativeQuery = true)
+    @Query(value = "SELECT * FROM usuarios u WHERE u.deleted_at IS NULL", nativeQuery = true)
     List<Usuarios> findAllActiveUsers();
 }

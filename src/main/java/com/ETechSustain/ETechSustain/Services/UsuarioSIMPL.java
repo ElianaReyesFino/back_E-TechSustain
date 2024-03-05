@@ -68,16 +68,13 @@ public class UsuarioSIMPL implements UsuariosService{
     }
 
     @Override
-    public Optional<UsuarioDTO> verifyUser(String correo, String contrasena) {
-        Optional<Usuarios> usuarioBuscado = usuariosRepository.findByCorreo(correo);
-        if (usuarioBuscado.isPresent()) {
-            Usuarios usuario = usuarioBuscado.get();
-            // Assuming you have a getPassword() method in Usuarios entity
-            if (verifyPassword(contrasena, usuario.getContrasena())) {
-                return usuarioBuscado.map(user -> conversionService.convert(user, UsuarioDTO.class));
-            }
+    public Optional<Usuarios> verifyUser(Usuarios usuarios) {
+        Optional<Usuarios> usuarioBuscado = usuariosRepository.findByCorreo(usuarios.getCorreo());
+        if (usuarioBuscado.isPresent() && verifyPassword(usuarios.getContrasena(), usuarioBuscado.get().getContrasena())) {
+            return usuarioBuscado;
+        }else {
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
     private boolean verifyPassword(String providedPassword, String storedPassword) {

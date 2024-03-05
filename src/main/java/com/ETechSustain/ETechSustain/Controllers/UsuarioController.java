@@ -55,8 +55,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<?> verifyUsuario(@RequestBody String correo, @RequestBody String contrasena) {
-        Optional<UsuarioDTO> verifiedUser = usuariosService.verifyUser(correo, contrasena);
+    public ResponseEntity<?> verifyUsuario(@RequestBody Usuarios usuarios) {
+        Optional<Usuarios> verifiedUser = usuariosService.verifyUser(usuarios);
         if (verifiedUser.isPresent()) {
             return ResponseEntity.ok("Usuario verificado"); // or you can return user details here
         } else {
