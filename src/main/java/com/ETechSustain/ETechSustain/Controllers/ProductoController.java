@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/productos")
-@CrossOrigin("http://127.0.0.1:5500")
+@CrossOrigin("https://e-tech-sustain.netlify.app")
 
 public class ProductoController {
 
@@ -37,5 +37,10 @@ public class ProductoController {
     @PutMapping("/{id}")
     public Optional<Productos> updateProduct(@PathVariable Integer id, @RequestBody Productos newProduct){
         return productoService.updateProduct(id, newProduct);
+    }
+
+    @PostMapping("/create/list")
+    public List<Productos> createProducts(@RequestBody List<Productos> productos){
+        return productoService.createProducts(productos);
     }
 }

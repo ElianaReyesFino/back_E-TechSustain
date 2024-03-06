@@ -41,4 +41,9 @@ public class CarritoSIMPL implements CarritoService{
     public List<Object[]> getResumenCarritoPorUsuario(Integer id) {
         return carritoRepository.obtenerResumenCarritoPorUsuario(id);
     }
+
+    @Override
+    public List<Carrito> createCarritos(List<Carrito> carritos) {
+        return carritoRepository.saveAll(carritos);
+    }
 }

@@ -17,4 +17,6 @@ public interface CarritoService {
 
     List<Object[]> getResumenCarritoPorUsuario(Integer id);
 
+    List<Carrito> createCarritos(List<Carrito> carritos);
+
 }

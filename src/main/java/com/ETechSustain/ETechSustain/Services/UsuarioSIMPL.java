@@ -29,7 +29,7 @@ public class UsuarioSIMPL implements UsuariosService{
         if (existingUsuario.isPresent()) {
             throw new RuntimeException("Email already in use");
         } else {
-            usuariosRepository.save(usuarios); // Save the new user
+            usuariosRepository.save(usuarios);
             return conversionService.convert(usuarios, UsuarioDTO.class);
         }
     }

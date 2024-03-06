@@ -13,4 +13,6 @@ public interface ProductoService {
     public String deleteProduct(Integer id);
 
     public Optional<Productos> updateProduct(Integer id, Productos newProduct);
+
+    public List<Productos> createProducts(List<Productos> productos);
 }

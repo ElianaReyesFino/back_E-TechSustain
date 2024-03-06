@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("http://127.0.0.1:5500")
+@CrossOrigin("https://e-tech-sustain.netlify.app")
 
 public class UsuarioController {
     @Autowired

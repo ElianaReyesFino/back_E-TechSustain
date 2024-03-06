@@ -51,4 +51,9 @@ public class ProductosSIMPL implements ProductoService {
             throw new RuntimeException("El producto no se puede actualizar");
         }
     }
+
+    @Override
+    public List<Productos> createProducts(List<Productos> productos) {
+        return productosRepository.saveAll(productos);
+    }
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/carrito")
-@CrossOrigin("http://127.0.0.1:5500")
+@CrossOrigin("https://e-tech-sustain.netlify.app")
 
 public class CarritoController {
 
@@ -44,4 +44,8 @@ public class CarritoController {
         return carritoService.getResumenCarritoPorUsuario(id);
     }
 
+    @PostMapping("/create/list")
+    public List<Carrito> createCarritos(@RequestBody List<Carrito> carritos) {
+        return carritoService.createCarritos(carritos);
+    }
 }
